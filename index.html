@@ -93,20 +93,16 @@
       radial-gradient(ellipse at 15% 20%, rgba(217,178,106,.25), transparent 55%),
       radial-gradient(ellipse at 85% 80%, rgba(95,127,69,.18), transparent 55%), var(--cream); }
   .hero{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
-  .photo{ position:relative; width:min(100%,420px); margin:0 auto; }
-  .photo::before{ content:""; position:absolute; inset:6% -6% 0; z-index:0; border-radius:50% 50% 20px 20px;
-    background:radial-gradient(ellipse at 50% 40%, rgba(217,178,106,.45), transparent 65%);
-    filter:blur(18px); animation:glow 5s ease-in-out infinite; }
-  @keyframes glow{ 50%{ opacity:.55; transform:scale(.96); } }
-  .photo svg.frame-svg{ position:relative; z-index:1; width:100%; height:auto; display:block; overflow:visible;
-    filter:drop-shadow(0 18px 30px rgba(62,91,46,.22)); }
-  .frame-svg .pic{ transform-box:view-box; transform-origin:220px 300px; animation:kenburns 18s ease-in-out infinite alternate; }
-  .frame-svg .shine{ animation:shine 6s linear infinite; }
-  @keyframes shine{ from{ stroke-dashoffset:0; } to{ stroke-dashoffset:-1720; } }
-  .frame-svg .bead{ animation:twinkle 3s ease-in-out infinite; }
-  @keyframes twinkle{ 50%{ opacity:.35; } }
-  .frame-svg .finial{ transform-box:fill-box; transform-origin:50% 100%; animation:bob 4s ease-in-out infinite; }
-  @keyframes bob{ 50%{ transform:translateY(-3px); } }
+  .photo{ position:relative; width:min(100%,420px); margin:0 auto; aspect-ratio:4/5; }
+  .photo .pic{ position:absolute; inset:0; background:url("couple.jpg") no-repeat;
+    background-size:172%; background-position:80% 74%;
+    -webkit-mask-image:linear-gradient(to right, transparent, #000 18%, #000 82%, transparent),
+                       linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
+    -webkit-mask-composite:source-in;
+            mask-image:linear-gradient(to right, transparent, #000 18%, #000 82%, transparent),
+                       linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
+            mask-composite:intersect;
+    mix-blend-mode:multiply; transform-origin:60% 70%; animation:kenburns 18s ease-in-out infinite alternate; }
   .hero-text .mal{ font-family:"Mal"; color:var(--gold); font-size:22px; }
   .hero-text .tog{ font-family:var(--caps); font-size:13px; letter-spacing:.3em; color:var(--ink); margin-top:18px; line-height:1.9; }
   .names{ font-family:var(--script); color:var(--green); font-size:clamp(36px,7vw,76px); line-height:1.05; margin-top:10px; }
@@ -231,7 +227,7 @@
   @media (max-width:760px){
     section{ padding:72px 16px; }
     .hero{ grid-template-columns:1fr; gap:26px; text-align:center; }
-    .photo{ width:min(84%,340px); }
+    .photo{ width:min(88%,360px); }
     .events, .maps{ grid-template-columns:1fr; }
     .timer{ gap:8px; }
     .unit{ padding:14px 2px 10px; border-radius:10px; }
@@ -299,27 +295,7 @@
   <svg class="sprig" style="right:-10px;top:80px;transform:scaleX(-1);animation-delay:-3s" width="150" height="220" viewBox="0 0 170 240" data-sprig></svg>
   <div class="wrap hero">
     <div class="photo reveal zoom">
-      <svg class="frame-svg" viewBox="-34 -62 468 590" role="img" aria-label="Akshay and Krishna">
-        <defs>
-          <linearGradient id="fg" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#F1D9A0"/><stop offset=".35" stop-color="#C79A4E"/>
-            <stop offset=".6" stop-color="#E8C77F"/><stop offset="1" stop-color="#9A6B28"/>
-          </linearGradient>
-          <clipPath id="archClip"><path id="aIn"/></clipPath>
-        </defs>
-        <path id="aMat" fill="#FBF7EE"/>
-        <g clip-path="url(#archClip)">
-          <rect x="0" y="0" width="400" height="500" fill="#fff"/>
-          <image class="pic" href="couple.jpg" x="-230" y="-534" width="688" height="1222" preserveAspectRatio="none"/>
-        </g>
-        <path id="aOut" fill="none" stroke="url(#fg)" stroke-width="4"/>
-        <path id="aOut2" fill="none" stroke="url(#fg)" stroke-width="1"/>
-        <path id="aInLine" fill="none" stroke="url(#fg)" stroke-width="1.6"/>
-        <path id="aShine" class="shine" fill="none" stroke="#fff8e1" stroke-width="3" stroke-linecap="round" stroke-dasharray="70 1650" opacity=".9"/>
-        <g id="beads"></g>
-        <g id="garland"></g>
-        <g id="frameOrn"></g>
-      </svg>
+      <div class="pic" role="img" aria-label="Akshay and Krishna"></div>
     </div>
     <div class="hero-text center">
       <div class="mal reveal">ശുഭവിവാഹം</div>
@@ -585,74 +561,6 @@ var CONFIG = {
     A("path",{d:"M16 10 h14 l-2 18 a5 5 0 0 1 -10 0 Z M23 33 V52 M17 52 h12",fill:"none",stroke:GOLD,"stroke-width":1.6,transform:"rotate(-12 23 30)"});
     A("path",{d:"M36 10 h14 l-2 18 a5 5 0 0 1 -10 0 Z M43 33 V52 M37 52 h12",fill:"none",stroke:GOLD,"stroke-width":1.6,transform:"rotate(12 43 30)"});
     A("path",{d:"M33 2 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5Z",fill:GOLD}); })();
-
-  /* ---------- Photo frame ---------- */
-  (function(){
-    if(!document.getElementById("aOut")) return;
-    function arch(i){ var r=200-i; return "M"+i+" "+(500-i)+" L"+i+" 200 A"+r+" "+r+" 0 0 1 "+(400-i)+" 200 L"+(400-i)+" "+(500-i)+" Z"; }
-    [["aMat",-2],["aOut",-2],["aOut2",6],["aIn",18],["aInLine",18],["aShine",-2]].forEach(function(a){
-      document.getElementById(a[0]).setAttribute("d",arch(a[1])); });
-    // beads + jasmine buds along the arch
-    var bg=document.getElementById("beads");
-    var guide=document.createElementNS(NS,"path"); guide.setAttribute("d",arch(12)); guide.setAttribute("fill","none");
-    bg.appendChild(guide);
-    var B=mk(bg), L=guide.getTotalLength(), n=0;
-    for(var t=6;t<L-388;t+=13){
-      var pt=guide.getPointAtLength(t); if(pt.y>486) continue; n++;
-      if(n%7===0){
-        for(var q=0;q<5;q++) B("ellipse",{cx:pt.x,cy:pt.y-3.4,rx:2,ry:3.6,fill:"#fffdf6",stroke:"#d9c9a3","stroke-width":.4,transform:"rotate("+(q*72)+" "+pt.x+" "+pt.y+")"});
-        B("circle",{cx:pt.x,cy:pt.y,r:1.3,fill:"#e9b949"});
-      } else {
-        var c=B("circle",{cx:pt.x,cy:pt.y,r:n%2?2.1:1.4,fill:n%2?"#C79A4E":"#E8C77F","class":"bead"});
-        c.style.animationDelay=((n*0.08)%3)+"s";
-      }
-    }
-    // jasmine garland draped over the arch, with hanging strands at the shoulders
-    var gg=document.getElementById("garland"), G=mk(gg);
-    var gp=document.createElementNS(NS,"path"); gp.setAttribute("d",arch(-14)); gp.setAttribute("fill","none"); gg.appendChild(gp);
-    function jas(x,y,sz,rot){
-      for(var q=0;q<5;q++) G("ellipse",{cx:x,cy:y-sz,rx:sz*.55,ry:sz,fill:"#fffdf6",stroke:"#dccfae","stroke-width":.4,transform:"rotate("+(q*72+rot)+" "+x+" "+y+")"});
-      G("circle",{cx:x,cy:y,r:sz*.35,fill:"#f2c14e"});
-    }
-    function leaf(x,y,ang){ G("ellipse",{cx:x,cy:y,rx:6,ry:2.4,fill:"#5F7F45",transform:"rotate("+ang+" "+x+" "+y+")"}); }
-    
-    // arc portion only: from left shoulder (y=200) over the top to right shoulder
-    var startT=(500+14)-200, endT=startT+Math.PI*(214);
-    G("path",{d:"M-14 200 A214 214 0 0 1 414 200",fill:"none",stroke:"#6b7f4a","stroke-width":1});
-    for(var t=startT, k=0; t<=endT; t+=10, k++){
-      var a=gp.getPointAtLength(t), b=gp.getPointAtLength(t+1), ang=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI;
-      if(k%4===2){ leaf(a.x,a.y,ang+35); leaf(a.x,a.y,ang-35); }
-      if(k%9===4) G("circle",{cx:a.x,cy:a.y,r:3.2,fill:"#E8833A"});      // kanakambaram
-      else jas(a.x,a.y,3.6,k*17);
-    }
-    [-14,414].forEach(function(x){
-      for(var h=0;h<6;h++){ var y=212+h*11; if(h%3===1) leaf(x,y,90); jas(x,y,3.2+(h===5?.6:0),h*30); }
-      G("path",{d:"M"+(x-4)+" 280 l4 10 4 -10Z",fill:"#C79A4E"});
-    });
-    var og=document.getElementById("frameOrn"), O=mk(og);
-    // finial (kalasam) on top
-    var f=document.createElementNS(NS,"g"); f.setAttribute("class","finial"); og.appendChild(f);
-    var F=mk(f);
-    [-1,1].forEach(function(sd){ F("path",{d:"M200 -4 Q"+(200+sd*26)+" -6 "+(200+sd*34)+" -20 Q"+(200+sd*18)+" -18 200 -10Z",fill:"url(#fg)"}); });
-    F("path",{d:"M186 -10 Q182 -30 200 -36 Q218 -30 214 -10Z",fill:"url(#fg)"});
-    F("rect",{x:194,y:-44,width:12,height:8,rx:2,fill:"url(#fg)"});
-    F("path",{d:"M200 -62 Q209 -52 200 -44 Q191 -52 200 -62Z",fill:"#E8C77F",stroke:"#9A6B28","stroke-width":.6});
-    F("circle",{cx:200,cy:-23,r:3,fill:"#7A1C20"});
-    // side medallions
-    [[-2,200],[402,200]].forEach(function(p){
-      O("path",{d:"M"+p[0]+" "+(p[1]-14)+" l9 14 -9 14 -9 -14Z",fill:"url(#fg)",stroke:"#FBF7EE","stroke-width":1.2});
-      O("circle",{cx:p[0],cy:p[1],r:3,fill:"#3E5B2E"});
-    });
-    // plinth
-    O("path",{d:"M-18 498 H418 L412 508 H-12Z",fill:"url(#fg)"});
-    O("path",{d:"M-6 508 H406 V514 H-6Z",fill:"#C79A4E",opacity:.8});
-    // little hanging bells at the shoulders
-    [[70,72],[330,72]].forEach(function(p){
-      O("line",{x1:p[0],y1:p[1],x2:p[0],y2:p[1]+22,stroke:"#C79A4E","stroke-width":.8});
-      O("path",{d:"M"+(p[0]-5)+" "+(p[1]+30)+" Q"+p[0]+" "+(p[1]+16)+" "+(p[0]+5)+" "+(p[1]+30)+"Z",fill:"url(#fg)"});
-      O("circle",{cx:p[0],cy:p[1]+31,r:1.5,fill:"#9A6B28"});
-    });
-  })();
 
   /* ---------- Logo wreath ---------- */
   (function(){ var g=document.getElementById("wreath"); if(!g) return; var A=mk(g);
