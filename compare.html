@@ -187,7 +187,7 @@
   .polar .tape{ position:absolute; top:-4%; left:50%; width:34%; height:7%; transform:translateX(-50%) rotate(2deg);
     background:repeating-linear-gradient(45deg,rgba(184,137,63,.55) 0 6px,rgba(232,199,127,.55) 6px 12px); }
   .polar .cap{ position:absolute; left:0; right:0; bottom:5%; text-align:center; }
-  .polar .cap b{ display:block; font-family:"Pinyon Script", cursive; font-weight:400; font-size:28px; color:var(--green); line-height:1.1; }
+  .polar .cap b{ display:block; white-space:nowrap; font-family:"Pinyon Script", cursive; font-weight:400; font-size:22px; color:var(--green); line-height:1.1; }
   .polar .cap span{ font-family:"Cinzel", serif; font-size:10px; letter-spacing:.3em; color:var(--gold); }
 
   /* F3 floral wreath */
@@ -214,6 +214,56 @@
   .torn .paper{ position:absolute; inset:0; background:#fbf4e2; }
   .torn .photo-in{ inset:7%; }
   .torn .flecks{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+
+  /* ---------- polaroid variations ---------- */
+  .opt.pv .tag b{ background:#B8893F; font-size:12px; }
+  .pola{ position:relative; width:66%; margin:30px auto 0; background:#fffdf8; padding:6% 6% 24%;
+    box-shadow:0 18px 30px rgba(60,40,10,.22), 0 2px 5px rgba(60,40,10,.1); }
+  .pola .win{ position:relative; aspect-ratio:4/5; overflow:hidden; background:#fff; }
+  .pola .cap{ position:absolute; left:0; right:0; bottom:5%; text-align:center; }
+  .pola .cap b{ display:block; white-space:nowrap; font-family:"Pinyon Script", cursive; font-weight:400; font-size:21px; color:var(--green); line-height:1.1; }
+  .pola .cap span{ font-family:"Cinzel", serif; font-size:10px; letter-spacing:.3em; color:var(--gold); }
+  .pola .cap .ml{ font-family:"Mal", sans-serif; font-size:20px; color:#7A1C20; letter-spacing:0; }
+  .swing{ transform-origin:50% -20%; animation:hang 6s ease-in-out infinite; }
+  .t1{ --r:-3deg; } .t2{ --r:2deg; } .t3{ --r:-2deg; }
+  .pola.swing{ transform:rotate(var(--r)); }
+  @keyframes hang{ 0%,100%{ transform:rotate(var(--r,-3deg));} 50%{ transform:rotate(calc(var(--r,-3deg) + 2deg));} }
+
+  /* P2 clothesline */
+  .line-wrap{ position:relative; padding-top:26px; }
+  .twine{ position:absolute; left:-4%; right:-4%; top:6px; height:40px; overflow:visible; }
+  .peg{ position:absolute; top:-14%; left:50%; width:7%; height:15%; transform:translateX(-50%); z-index:3; border-radius:2px;
+    background:linear-gradient(90deg,#b98a57,#e2c08f 50%,#a87843); box-shadow:0 2px 3px rgba(0,0,0,.25); }
+  .peg::after{ content:""; position:absolute; left:15%; right:15%; top:40%; height:12%; background:#8a8f94; }
+  .bulb{ animation:glowb 2.4s ease-in-out infinite alternate; }
+  @keyframes glowb{ from{ opacity:.45;} to{ opacity:1;} }
+
+  /* P3 developing */
+  .dev .photo-in{ animation:develop 5s ease-out forwards; }
+  .dev.again .photo-in{ animation:none; }
+  @keyframes develop{ 0%{ filter:grayscale(1) brightness(.25) contrast(.6) sepia(.4); opacity:.7;} 40%{ filter:grayscale(.8) brightness(.7) sepia(.5);} 100%{ filter:none; opacity:1;} }
+
+  /* P4 gold corners + jasmine */
+  .gc{ position:absolute; width:12%; aspect-ratio:1; z-index:2; background:linear-gradient(135deg,#f3d38a,#b8893f);
+    clip-path:polygon(0 0,100% 0,0 100%); }
+  .gc.tl{ left:-2%; top:-2%; } .gc.tr{ right:-2%; top:-2%; transform:scaleX(-1); }
+  .gc.bl{ left:-2%; bottom:-2%; transform:scaleY(-1); } .gc.br{ right:-2%; bottom:-2%; transform:scale(-1,-1); }
+  .tuck{ position:absolute; right:-20%; top:-14%; width:60%; z-index:4; overflow:visible; transform:rotate(30deg); }
+
+  /* P5 stack */
+  .stackp{ position:relative; width:66%; margin:30px auto 0; }
+  .stackp .pola{ width:100%; margin:0; }
+  .stackp .back{ position:absolute; inset:0; background:#fffdf8; box-shadow:0 10px 20px rgba(60,40,10,.18); }
+  .stackp .back span{ position:absolute; left:0; right:0; bottom:6%; text-align:center; font-family:"Pinyon Script", cursive; font-size:22px; color:var(--muted); }
+  .stackp .back .inner{ position:absolute; inset:6% 6% 24%; background:linear-gradient(135deg,#efe4cc,#e2d2ad); }
+  .stackp .b1{ transform:rotate(-9deg) translate(-8%,2%); }
+  .stackp .b2{ transform:rotate(7deg) translate(8%,0); }
+  .stackp:hover .b1{ transform:rotate(-14deg) translate(-16%,2%); } .stackp:hover .b2{ transform:rotate(12deg) translate(16%,0); }
+  .stackp .back{ transition:transform .6s; }
+
+  /* P6 brass pin */
+  .pin{ position:absolute; top:-3%; left:50%; width:18px; height:18px; margin-left:-9px; border-radius:50%; z-index:3;
+    background:radial-gradient(circle at 35% 30%,#fff3c4,#d9a441 45%,#8a5a1e); box-shadow:2px 4px 4px rgba(0,0,0,.3); }
   .note{ max-width:640px; margin:46px auto 0; text-align:center; font-size:18px; color:var(--muted); font-style:italic; }
   @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } .script .ink,.kolam .k{ stroke-dashoffset:0; } }
 </style>
@@ -221,8 +271,52 @@
 <body>
 <header>
   <h1>Around the Photo</h1>
-  <p>Each card shows one idea on its own. Tell me the ones you like (F1–F6 for frames, 0–12 for the rest). You can mix them.</p>
+  <p>Polaroid variations first (P1–P6), then frames (F1–F6) and other ideas (0–12).</p>
 </header>
+
+<div class="section-title"><h3>Polaroid styles</h3><p>F2 is now on the main invitation. Here are some variations of it — pick one or keep P1.</p></div>
+<main class="grid">
+  <section class="opt pv">
+    <div class="pola swing t1"><div class="win"><div class="photo-in"></div></div>
+      <div class="cap"><b>Akshay &amp; Krishna</b><span>23 · 05 · 2027</span></div>
+      <div style="position:absolute;top:-4%;left:50%;width:34%;height:7%;transform:translateX(-50%) rotate(2deg);background:repeating-linear-gradient(45deg,rgba(184,137,63,.55) 0 6px,rgba(232,199,127,.55) 6px 12px)"></div></div>
+    <div class="tag"><b>P1</b><h2>Classic taped (F2)</h2></div><p>What's on the invitation now: gold washi tape on top, gentle sway.</p></section>
+
+  <section class="opt pv">
+    <div class="line-wrap">
+      <svg class="twine" viewBox="0 0 300 40" preserveAspectRatio="none" id="twine"></svg>
+      <div class="pola swing t2" style="margin-top:4px"><div class="peg"></div><div class="win"><div class="photo-in"></div></div>
+        <div class="cap"><b>Akshay &amp; Krishna</b><span>23 · 05 · 2027</span></div></div>
+    </div>
+    <div class="tag"><b>P2</b><h2>Clothesline &amp; lights</h2></div><p>Clipped with a wooden peg to a string of warm fairy lights.</p></section>
+
+  <section class="opt pv">
+    <div class="pola dev" id="devPola" style="transform:rotate(2deg)"><div class="win"><div class="photo-in"></div></div>
+      <div class="cap"><b>Akshay &amp; Krishna</b><span>23 · 05 · 2027</span></div></div>
+    <button class="replay" id="devAgain">Develop again</button>
+    <div class="tag"><b>P3</b><h2>Developing photo</h2></div><p>Starts dark like fresh instant film and slowly develops into colour.</p></section>
+
+  <section class="opt pv">
+    <div class="pola swing t3"><div class="win"><div class="photo-in"></div></div>
+      <span class="gc tl"></span><span class="gc tr"></span><span class="gc bl"></span><span class="gc br"></span>
+      <svg class="tuck" viewBox="0 0 120 80" id="tuck"></svg>
+      <div class="cap"><b>Akshay &amp; Krishna</b><span>23 · 05 · 2027</span></div></div>
+    <div class="tag"><b>P4</b><h2>Gold corners &amp; jasmine</h2></div><p>Gold photo corners, with a jasmine sprig tucked behind the top corner.</p></section>
+
+  <section class="opt pv">
+    <div class="stackp">
+      <div class="back b1"><div class="inner"></div><span>since 2026</span></div>
+      <div class="back b2"><div class="inner"></div><span>forever</span></div>
+      <div class="pola" style="transform:rotate(-2deg)"><div class="win"><div class="photo-in"></div></div>
+        <div class="cap"><b>Akshay &amp; Krishna</b><span>23 · 05 · 2027</span></div></div>
+    </div>
+    <div class="tag"><b>P5</b><h2>Polaroid stack</h2></div><p>Two more polaroids peeking out behind (hover to fan them). They could hold your engagement photos.</p></section>
+
+  <section class="opt pv">
+    <div class="pola swing t2"><div class="pin"></div><div class="win"><div class="photo-in"></div></div>
+      <div class="cap"><b class="ml">അക്ഷയ് ♥ കൃഷ്ണ</b><span>23 · 05 · 2027</span></div></div>
+    <div class="tag"><b>P6</b><h2>Brass pin, Malayalam caption</h2></div><p>Pinned with a brass pin, names handwritten in Malayalam.</p></section>
+</main>
 
 <div class="section-title"><h3>Frame styles</h3><p>Six different frames, each on its own. The original simple gold arch is back on the main invitation for now.</p></div>
 <main class="grid">
@@ -421,6 +515,27 @@
     var F=mk(document.getElementById("flecks"));
     for(var i=0;i<46;i++){ var side=i%4, t=rnd(), x=side===0||side===2?t*400:(side===1?392+rnd()*6:2+rnd()*6), y=side===1||side===3?t*500:(side===0?2+rnd()*6:492+rnd()*6);
       F("rect",{x:x,y:y,width:2+rnd()*4,height:1.5+rnd()*3,fill:rnd()>.5?"#d4a64a":"#f0d48a",transform:"rotate("+(rnd()*90)+" "+x+" "+y+")",opacity:.9}); }
+  })();
+
+
+  // P2 twine with fairy lights
+  (function(){ var t=document.getElementById("twine"); if(!t) return; var T=mk(t);
+    T("path",{d:"M0 4 Q150 34 300 4",fill:"none",stroke:"#a88b62","stroke-width":1.2});
+    for(var i=1;i<10;i++){ var x=i*30, y=4+30*(1-Math.pow((x-150)/150,2))*1; if(Math.abs(x-150)<14) continue;
+      var c=T("circle",{cx:x,cy:y+5,r:3.4,fill:"#ffd979","class":"bulb"}); c.style.animationDelay=(i*.3)+"s";
+      T("circle",{cx:x,cy:y+5,r:7,fill:"#ffd979",opacity:.25,"class":"bulb"}).style.animationDelay=(i*.3)+"s"; }
+  })();
+  // P3 develop again
+  (function(){ var d=document.getElementById("devPola"), b=document.getElementById("devAgain"); if(!d) return;
+    b.addEventListener("click",function(){ d.classList.add("again"); void d.offsetWidth; d.classList.remove("again"); });
+  })();
+  // P4 tucked jasmine sprig
+  (function(){ var t=document.getElementById("tuck"); if(!t) return; var J=mk(t);
+    J("path",{d:"M4 70 C40 50 80 30 116 10",stroke:"#6b7f4a","stroke-width":1.4,fill:"none"});
+    [[30,55],[55,40],[80,26],[104,15]].forEach(function(p,i){
+      J("ellipse",{cx:p[0]-4,cy:p[1]+8,rx:8,ry:3,fill:"#6E8B4E",transform:"rotate(-20 "+p[0]+" "+p[1]+")"});
+      for(var q=0;q<5;q++) J("ellipse",{cx:p[0],cy:p[1]-4.5,rx:2.6,ry:4.6,fill:"#fffdf7",stroke:"#dccfae","stroke-width":.4,transform:"rotate("+(q*72+i*15)+" "+p[0]+" "+p[1]+")"});
+      J("circle",{cx:p[0],cy:p[1],r:1.6,fill:"#f2c14e"}); });
   })();
 
   // 2 fireflies
