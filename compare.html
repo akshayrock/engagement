@@ -160,6 +160,60 @@
     background:linear-gradient(90deg,#9a6b28,#f1d9a0,#9a6b28); }
   .tie.l{ left:-12%; } .tie.r{ right:-12%; }
   .awin.open .tie{ opacity:1; }
+
+  /* ---------- frame styles ---------- */
+  .section-title{ max-width:1240px; margin:10px auto 22px; text-align:center; }
+  .section-title h3{ font-family:"Pinyon Script", cursive; font-weight:400; font-size:44px; color:var(--green); }
+  .section-title p{ color:var(--muted); font-style:italic; font-size:17px; }
+  .grid + .section-title{ margin-top:60px; }
+  .opt.fr .tag b{ background:#7A1C20; font-size:12px; }
+  .fst{ position:relative; width:72%; margin:12px auto 0; }
+
+  /* F1 kasavu */
+  .kasavu{ aspect-ratio:4/5; background:#fbf7ec; box-shadow:0 16px 30px rgba(62,91,46,.18); }
+  .kasavu::before,.kasavu::after{ content:""; position:absolute; pointer-events:none; z-index:2; }
+  .kasavu::before{ inset:3.5%; border:8px solid transparent;
+    border-image:linear-gradient(110deg,#a8782f,#f6dc9a 25%,#c39243 45%,#f6dc9a 65%,#a8782f) 1; animation:kasheen 5s linear infinite; }
+  .kasavu::after{ inset:7.5%; border:1.5px solid #c39243; }
+  .kasavu .photo-in{ inset:9.5%; }
+  .kasavu .stripe{ position:absolute; left:3.5%; right:3.5%; bottom:-1px; height:3px; background:#c39243; opacity:.6; }
+  @keyframes kasheen{ to{ filter:hue-rotate(0) brightness(1.08);} }
+
+  /* F2 polaroid */
+  .polar{ background:#fffdf8; padding:6% 6% 24%; transform:rotate(-3deg); box-shadow:0 18px 30px rgba(60,40,10,.22);
+    animation:hang 6s ease-in-out infinite; transform-origin:50% -10%; }
+  @keyframes hang{ 0%,100%{ transform:rotate(-3deg);} 50%{ transform:rotate(-1deg);} }
+  .polar .win{ position:relative; aspect-ratio:4/5; overflow:hidden; }
+  .polar .tape{ position:absolute; top:-4%; left:50%; width:34%; height:7%; transform:translateX(-50%) rotate(2deg);
+    background:repeating-linear-gradient(45deg,rgba(184,137,63,.55) 0 6px,rgba(232,199,127,.55) 6px 12px); }
+  .polar .cap{ position:absolute; left:0; right:0; bottom:5%; text-align:center; }
+  .polar .cap b{ display:block; font-family:"Pinyon Script", cursive; font-weight:400; font-size:28px; color:var(--green); line-height:1.1; }
+  .polar .cap span{ font-family:"Cinzel", serif; font-size:10px; letter-spacing:.3em; color:var(--gold); }
+
+  /* F3 floral wreath */
+  .wreath{ aspect-ratio:1; width:76%; }
+  .wreath .disc{ position:absolute; inset:9%; border-radius:50%; overflow:hidden; box-shadow:0 0 0 3px #fbf6ea, 0 0 0 4.5px #c39243, 0 14px 26px rgba(62,91,46,.2); }
+  .wreath .disc .photo-in{ background-size:150%; background-position:76% 62%; }
+  .wreath svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; animation:slowspin 60s linear infinite; }
+  @keyframes slowspin{ to{ transform:rotate(360deg);} }
+
+  /* F4 kerala mural */
+  .mural{ aspect-ratio:4/5; box-shadow:0 16px 30px rgba(60,20,10,.25); }
+  .mural .photo-in{ inset:11%; box-shadow:0 0 0 2px #1d1a14; }
+  .mural svg{ position:absolute; inset:0; width:100%; height:100%; }
+
+  /* F5 art deco */
+  .deco{ aspect-ratio:4/5; }
+  .deco .photo-in{ inset:8%; }
+  .deco svg{ position:absolute; inset:-4%; width:108%; height:108%; overflow:visible; }
+  .deco .line{ stroke-dasharray:2000; stroke-dashoffset:2000; animation:drawline 3s ease forwards; }
+  @keyframes drawline{ to{ stroke-dashoffset:0; } }
+
+  /* F6 torn paper */
+  .torn{ aspect-ratio:4/5; filter:drop-shadow(0 12px 18px rgba(60,40,10,.25)); }
+  .torn .paper{ position:absolute; inset:0; background:#fbf4e2; }
+  .torn .photo-in{ inset:7%; }
+  .torn .flecks{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
   .note{ max-width:640px; margin:46px auto 0; text-align:center; font-size:18px; color:var(--muted); font-style:italic; }
   @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } .script .ink,.kolam .k{ stroke-dashoffset:0; } }
 </style>
@@ -167,9 +221,38 @@
 <body>
 <header>
   <h1>Around the Photo</h1>
-  <p>New: two window ideas at the top (11 &amp; 12). Each card shows one idea on its own — tell me the numbers you like, you can mix them.</p>
+  <p>Each card shows one idea on its own. Tell me the ones you like (F1–F6 for frames, 0–12 for the rest). You can mix them.</p>
 </header>
 
+<div class="section-title"><h3>Frame styles</h3><p>Six different frames, each on its own. The original simple gold arch is back on the main invitation for now.</p></div>
+<main class="grid">
+  <section class="opt fr">
+    <div class="fst kasavu"><div class="photo-in"></div></div>
+    <div class="tag"><b>F1</b><h2>Kasavu border</h2></div><p>Cream with a shimmering gold border, like a kasavu saree. Simple and very Kerala.</p></section>
+
+  <section class="opt fr">
+    <div class="fst polar"><div class="tape"></div><div class="win"><div class="photo-in"></div></div>
+      <div class="cap"><b>Akshay &amp; Krishna</b><span>23 · 05 · 2027</span></div></div>
+    <div class="tag"><b>F2</b><h2>Polaroid</h2></div><p>An instant photo taped at the top, gently swaying, with your names written underneath.</p></section>
+
+  <section class="opt fr">
+    <div class="fst wreath"><div class="disc"><div class="photo-in"></div></div><svg viewBox="0 0 200 200" id="wreathSvg"></svg></div>
+    <div class="tag"><b>F3</b><h2>Flower wreath</h2></div><p>A round photo inside a slowly turning wreath of jasmine, leaves and kanakambaram.</p></section>
+
+  <section class="opt fr">
+    <div class="fst mural"><svg viewBox="0 0 400 500" preserveAspectRatio="none" id="muralSvg"></svg><div class="photo-in"></div></div>
+    <div class="tag"><b>F4</b><h2>Kerala mural</h2></div><p>A painted border in Kerala temple-mural colours: red, ochre, green, black.</p></section>
+
+  <section class="opt fr">
+    <div class="fst deco"><div class="photo-in"></div><svg viewBox="-16 -20 432 540" id="decoSvg"></svg></div>
+    <div class="tag"><b>F5</b><h2>Art deco gold</h2></div><p>Thin gold lines that draw themselves in, with fan-shaped corners. Elegant and minimal.</p></section>
+
+  <section class="opt fr">
+    <div class="fst torn"><div class="paper" id="tornPaper"></div><div class="photo-in"></div><svg class="flecks" viewBox="0 0 400 500" preserveAspectRatio="none" id="flecks"></svg></div>
+    <div class="tag"><b>F6</b><h2>Torn watercolour paper</h2></div><p>The photo on hand-torn cream paper with flecks of gold leaf on the edges.</p></section>
+</main>
+
+<div class="section-title"><h3>Other ideas</h3><p>Windows and decorations from before.</p></div>
 <main class="grid">
   <section class="opt new">
     <div class="kwin" id="kwin">
@@ -288,6 +371,57 @@
       P("circle",{cx:p[0],cy:p[1],r:1.1,fill:"#f2c14e"});
     });
   });
+
+
+  // F3 wreath
+  (function(){ var svg=document.getElementById("wreathSvg"); if(!svg) return; var W=mk(svg);
+    for(var i=0;i<36;i++){ var a=i/36*Math.PI*2, r=88+(i%2?3:-3), x=100+r*Math.cos(a), y=100+r*Math.sin(a), deg=a*180/Math.PI;
+      W("ellipse",{cx:x,cy:y,rx:9,ry:3.4,fill:i%3?"#6E8B4E":"#8aa866",transform:"rotate("+(deg+60)+" "+x+" "+y+")"});
+      if(i%3===0){ for(var q=0;q<5;q++) W("ellipse",{cx:x,cy:y-4,rx:2.4,ry:4.2,fill:"#fffdf7",stroke:"#dccfae","stroke-width":.4,transform:"rotate("+(q*72)+" "+x+" "+y+")"});
+        W("circle",{cx:x,cy:y,r:1.5,fill:"#f2c14e"}); }
+      else if(i%3===1) W("circle",{cx:x,cy:y,r:3,fill:"#E8833A"});
+    }
+  })();
+
+  // F4 mural border
+  (function(){ var svg=document.getElementById("muralSvg"); if(!svg) return; var M=mk(svg);
+    M("rect",{x:0,y:0,width:400,height:500,fill:"#b0301f"});
+    M("rect",{x:6,y:6,width:388,height:488,fill:"none",stroke:"#1d1a14","stroke-width":2});
+    M("rect",{x:14,y:14,width:372,height:472,fill:"none",stroke:"#d89a2b","stroke-width":4});
+    M("rect",{x:36,y:36,width:328,height:428,fill:"#d89a2b"});
+    M("rect",{x:40,y:40,width:320,height:420,fill:"none",stroke:"#1d1a14","stroke-width":1.5});
+    function petal(x,y,rot){ M("path",{d:"M"+x+" "+y+" q-6 -7 0 -14 q6 7 0 14Z",fill:"#d89a2b",stroke:"#1d1a14","stroke-width":.8,transform:"rotate("+rot+" "+x+" "+y+")"});
+      M("circle",{cx:x,cy:y,r:1.6,fill:"#2f5a3a"}); }
+    for(var x=34;x<=366;x+=22){ petal(x,30,0); petal(x,470,180); }
+    for(var y=52;y<=448;y+=22){ petal(26,y,-90); petal(374,y,90); }
+    [[25,25],[375,25],[25,475],[375,475]].forEach(function(c){ M("circle",{cx:c[0],cy:c[1],r:9,fill:"#2f5a3a",stroke:"#1d1a14","stroke-width":1.2}); M("circle",{cx:c[0],cy:c[1],r:3.5,fill:"#d89a2b"}); });
+  })();
+
+  // F5 art deco
+  (function(){ var svg=document.getElementById("decoSvg"); if(!svg) return; var D=mk(svg), G="#B8893F";
+    D("rect",{x:0,y:0,width:400,height:500,fill:"none",stroke:G,"stroke-width":1.6,"class":"line"});
+    D("rect",{x:10,y:10,width:380,height:480,fill:"none",stroke:G,"stroke-width":.8,"class":"line"});
+    [[0,0,0],[400,0,90],[400,500,180],[0,500,270]].forEach(function(c){
+      var g=document.createElementNS(NS,"g"); g.setAttribute("transform","translate("+c[0]+" "+c[1]+") rotate("+c[2]+")"); svg.appendChild(g); var C=mk(g);
+      C("path",{d:"M0 0 L46 0 A46 46 0 0 1 0 46Z",fill:"#F8F1E3",stroke:G,"stroke-width":1.2});
+      for(var k=1;k<6;k++){ var a=k/6*Math.PI/2; C("line",{x1:0,y1:0,x2:46*Math.cos(a),y2:46*Math.sin(a),stroke:G,"stroke-width":.8}); }
+      C("path",{d:"M0 0 L24 0 A24 24 0 0 1 0 24Z",fill:G,opacity:.85});
+    });
+    D("path",{d:"M170 -8 L200 -18 L230 -8",fill:"none",stroke:G,"stroke-width":1.2});
+    D("path",{d:"M200 -18 l6 9 -6 9 -6 -9Z",fill:G});
+    D("path",{d:"M170 508 L200 518 L230 508",fill:"none",stroke:G,"stroke-width":1.2});
+  })();
+
+  // F6 torn paper edge + gold flecks
+  (function(){ var el=document.getElementById("tornPaper"); if(!el) return; var pts=[], seed=7;
+    function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
+    function edge(x0,y0,x1,y1,n){ for(var i=0;i<n;i++){ var t=i/n, j=(rnd()-.5)*1.8; pts.push(((x0+(x1-x0)*t)+(y0===y1?0:j))+"% "+((y0+(y1-y0)*t)+(x0===x1?0:j))+"%"); } }
+    edge(1,1,99,1,40); edge(99,1,99,99,46); edge(99,99,1,99,40); edge(1,99,1,1,46);
+    el.style.clipPath="polygon("+pts.join(",")+")";
+    var F=mk(document.getElementById("flecks"));
+    for(var i=0;i<46;i++){ var side=i%4, t=rnd(), x=side===0||side===2?t*400:(side===1?392+rnd()*6:2+rnd()*6), y=side===1||side===3?t*500:(side===0?2+rnd()*6:492+rnd()*6);
+      F("rect",{x:x,y:y,width:2+rnd()*4,height:1.5+rnd()*3,fill:rnd()>.5?"#d4a64a":"#f0d48a",transform:"rotate("+(rnd()*90)+" "+x+" "+y+")",opacity:.9}); }
+  })();
 
   // 2 fireflies
   var f=document.getElementById("flies");
