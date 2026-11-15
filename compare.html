@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Photo Decoration Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @font-face{ font-family:"Mal"; src:url("fonts/Manjari.woff2") format("woff2"); font-display:swap; }
+  :root{ --cream:#F8F1E3; --green:#3E5B2E; --gold:#B8893F; --ink:#3B3428; --muted:#7a6e5c; }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ background:var(--cream); color:var(--ink); font-family:"Cormorant Garamond", Georgia, serif; padding:40px 16px 80px; }
+  header{ text-align:center; max-width:640px; margin:0 auto 36px; }
+  header h1{ font-family:"Pinyon Script", cursive; font-weight:400; font-size:clamp(40px,8vw,60px); color:var(--green); }
+  header p{ font-size:19px; color:var(--muted); margin-top:8px; font-style:italic; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:34px 26px; max-width:1240px; margin:0 auto; }
+  .opt{ background:linear-gradient(160deg,#fbf6ea,#f2e9d6); border:1px solid rgba(184,137,63,.3); border-radius:18px; padding:30px 26px 22px; overflow:hidden; }
+  .tag{ display:flex; align-items:baseline; gap:10px; margin-top:26px; }
+  .tag b{ font-family:"Cinzel", serif; font-weight:500; color:#fff; background:var(--green); border-radius:50%; width:30px; height:30px; display:grid; place-items:center; font-size:14px; flex:none; }
+  .tag h2{ font-family:"Cinzel", serif; font-weight:500; font-size:15px; letter-spacing:.12em; text-transform:uppercase; color:var(--green); }
+  .opt p{ font-size:16px; color:var(--muted); margin-top:6px; line-height:1.45; }
+
+  /* the photo, exactly as on the live site */
+  .stage{ position:relative; width:78%; margin:0 auto; aspect-ratio:4/5; }
+  .pic{ position:absolute; inset:0; background:url("couple.jpg") no-repeat; background-size:172%; background-position:80% 74%;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 18%,#000 82%,transparent),linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(to right,transparent,#000 18%,#000 82%,transparent),linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent);
+    mask-composite:intersect; mix-blend-mode:multiply; z-index:1; }
+  .stage svg, .stage .deco{ position:absolute; overflow:visible; pointer-events:none; }
+
+  /* 1 glow */
+  .glow::before{ content:""; position:absolute; inset:-8% -14% -4%; border-radius:50%; z-index:0;
+    background:radial-gradient(ellipse at 50% 58%, rgba(246,186,84,.85), rgba(246,186,84,.3) 45%, transparent 70%);
+    filter:blur(22px); animation:breathe 4s ease-in-out infinite; }
+  @keyframes breathe{ 0%,100%{ opacity:.7; transform:scale(.97);} 50%{ opacity:1; transform:scale(1.05);} }
+
+  /* 2 fireflies */
+  .fly{ position:absolute; width:6px; height:6px; border-radius:50%; z-index:2;
+    background:radial-gradient(circle,#fff6cf 0,#f2c14e 45%,transparent 70%); box-shadow:0 0 10px 3px rgba(242,193,78,.6);
+    animation:drift var(--d,7s) ease-in-out infinite, blink var(--b,2.4s) ease-in-out infinite; }
+  @keyframes drift{ 0%,100%{ transform:translate(0,0);} 25%{ transform:translate(14px,-18px);} 50%{ transform:translate(-8px,-30px);} 75%{ transform:translate(-16px,-10px);} }
+  @keyframes blink{ 0%,100%{ opacity:.15;} 50%{ opacity:1;} }
+
+  /* 3 handwritten */
+  .script text{ font-family:"Pinyon Script", cursive; fill:var(--gold); }
+  .script .ink{ stroke-dasharray:900; stroke-dashoffset:900; animation:ink 3.5s ease forwards infinite alternate; }
+  @keyframes ink{ to{ stroke-dashoffset:0; } }
+
+  /* 4 lamps */
+  .vilakku{ bottom:-7%; width:21%; z-index:3; filter:drop-shadow(0 6px 8px rgba(110,70,20,.25)); }
+  .vilakku.l{ left:-12%; } .vilakku.r{ right:-12%; }
+  .fl{ transform-box:fill-box; transform-origin:50% 100%; animation:flame 1s ease-in-out infinite alternate; }
+  @keyframes flame{ 0%{ transform:scale(1,1) skewX(0);} 50%{ transform:scale(.9,1.12) skewX(3deg);} 100%{ transform:scale(1.05,.94) skewX(-3deg);} }
+
+  /* 5 kolam */
+  .kolam{ left:-6%; right:-6%; bottom:-12%; width:112%; z-index:2; }
+  .kolam .k{ stroke-dasharray:1400; stroke-dashoffset:1400; animation:draw 5s ease-in-out infinite; }
+  @keyframes draw{ 0%{ stroke-dashoffset:1400;} 55%,85%{ stroke-dashoffset:0;} 100%{ stroke-dashoffset:0; opacity:0;} }
+
+  /* 6 jasmine */
+  .mulla{ top:-6%; left:-9%; width:68%; z-index:3; transform-origin:4% 6%; animation:swing 6s ease-in-out infinite; }
+  @keyframes swing{ 0%,100%{ transform:rotate(-1.5deg);} 50%{ transform:rotate(2deg);} }
+
+  /* 7 leaves */
+  .leaves{ left:-22%; bottom:-14%; width:80%; z-index:3; transform-origin:10% 100%; animation:rustle 7s ease-in-out infinite; }
+  .palm{ right:-20%; top:-14%; width:64%; z-index:0; opacity:.7; transform-origin:100% 0; animation:rustle 9s ease-in-out infinite reverse; }
+  @keyframes rustle{ 0%,100%{ transform:rotate(0);} 50%{ transform:rotate(2.5deg);} }
+
+  /* 8 timeline */
+  .timeline{ display:flex; justify-content:space-between; align-items:flex-start; position:relative; width:94%; margin:18px auto 0; }
+  .timeline::before{ content:""; position:absolute; left:8%; right:8%; top:7px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .timeline div{ text-align:center; position:relative; flex:1; font-size:14px; color:var(--muted); }
+  .timeline div i{ display:block; width:14px; height:14px; margin:0 auto 6px; border-radius:50%; background:#fbf6ea; border:1.5px solid var(--gold); }
+  .timeline div:last-child i{ background:var(--gold); animation:pulse 2s ease-in-out infinite; }
+  .timeline b{ display:block; font-family:"Cinzel", serif; font-weight:500; font-size:11px; letter-spacing:.12em; color:var(--green); text-transform:uppercase; }
+  @keyframes pulse{ 50%{ box-shadow:0 0 0 7px rgba(184,137,63,.18);} }
+
+  /* 9 stack */
+  .print{ position:absolute; width:62%; aspect-ratio:4/5; background:#fffdf8; padding:6% 6% 16%; z-index:0;
+    box-shadow:0 10px 22px rgba(60,40,10,.18); border-radius:3px; transition:transform .6s; }
+  .print span{ display:grid; place-items:center; width:100%; height:100%; background:linear-gradient(135deg,#e9dcc0,#d9c7a2);
+    font-family:"Cinzel", serif; font-size:11px; letter-spacing:.15em; color:#8a7652; text-align:center; }
+  .print.a{ left:-16%; top:6%; transform:rotate(-9deg); }
+  .print.b{ right:-16%; top:14%; transform:rotate(8deg); }
+  .stack:hover .print.a{ transform:rotate(-14deg) translateX(-8%); }
+  .stack:hover .print.b{ transform:rotate(13deg) translateX(8%); }
+
+  /* 10 blessing */
+  .bless{ text-align:center; margin-top:4px; position:relative; }
+  .bless .ml{ font-family:"Mal", sans-serif; font-size:34px; color:var(--gold);
+    background:linear-gradient(90deg,#9a6b28,#f3d38a,#b8893f,#f3d38a,#9a6b28); background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:sheen 4s linear infinite; }
+  .bless .en{ display:block; font-family:"Cinzel", serif; font-size:11px; letter-spacing:.35em; color:var(--muted); margin-top:2px; }
+  @keyframes sheen{ to{ background-position:-200% 0; } }
+
+  .note{ max-width:640px; margin:46px auto 0; text-align:center; font-size:18px; color:var(--muted); font-style:italic; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } .script .ink,.kolam .k{ stroke-dashoffset:0; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Around the Photo</h1>
+  <p>Each card shows the photo with one idea on its own. Tell me the numbers you like — you can mix them.</p>
+</header>
+
+<main class="grid">
+  <section class="opt"><div class="stage"><div class="pic"></div></div>
+    <div class="tag"><b>0</b><h2>As it is now</h2></div><p>No decoration — the painting fades softly into the page.</p></section>
+
+  <section class="opt"><div class="stage glow"><div class="pic"></div></div>
+    <div class="tag"><b>1</b><h2>Soft glow</h2></div><p>Warm golden lamplight behind the couple, slowly breathing.</p></section>
+
+  <section class="opt"><div class="stage" id="flies"><div class="pic"></div></div>
+    <div class="tag"><b>2</b><h2>Fireflies</h2></div><p>A few tiny gold sparkles drifting and twinkling around you both.</p></section>
+
+  <section class="opt"><div class="stage">
+      <div class="pic"></div>
+      <svg class="script" viewBox="0 0 300 375" style="inset:0;width:100%;height:100%;z-index:2">
+        <path id="curve" d="M-14 330 C-40 160 30 30 170 -20" fill="none"/>
+        <text font-size="34"><textPath href="#curve" startOffset="2%">Two journeys, one beautiful story</textPath></text>
+        <path class="ink" d="M-6 300 C-30 160 40 40 150 -14" fill="none" stroke="#B8893F" stroke-width=".6" transform="translate(-12 8)"/>
+      </svg>
+    </div>
+    <div class="tag"><b>3</b><h2>Handwritten line</h2></div><p>Your tagline in gold script, curving along the side of the photo.</p></section>
+
+  <section class="opt"><div class="stage">
+      <div class="pic"></div>
+      <svg class="vilakku l" viewBox="0 0 80 200"></svg><svg class="vilakku r" viewBox="0 0 80 200"></svg>
+    </div>
+    <div class="tag"><b>4</b><h2>Brass lamps</h2></div><p>Two nilavilakku with flickering flames at the bottom corners.</p></section>
+
+  <section class="opt"><div class="stage">
+      <div class="pic"></div>
+      <svg class="kolam" viewBox="0 0 340 70" id="kolam"></svg>
+    </div>
+    <div class="tag"><b>5</b><h2>Kolam</h2></div><p>A fine gold kolam pattern that draws itself under the photo.</p></section>
+
+  <section class="opt"><div class="stage">
+      <div class="pic"></div>
+      <svg class="mulla" viewBox="0 0 300 190"></svg>
+    </div>
+    <div class="tag"><b>6</b><h2>Jasmine string</h2></div><p>One loose strand of mulla draped across a top corner, swaying.</p></section>
+
+  <section class="opt"><div class="stage">
+      <svg class="palm" viewBox="0 0 200 200" id="palm"></svg>
+      <div class="pic"></div>
+      <svg class="leaves" viewBox="0 0 220 200" id="leaves"></svg>
+    </div>
+    <div class="tag"><b>7</b><h2>Banana leaf &amp; palm</h2></div><p>Watercolour Kerala greenery peeking in from the corners, like your card.</p></section>
+
+  <section class="opt"><div class="stage"><div class="pic"></div></div>
+    <div class="timeline">
+      <div><i></i><b>Engaged</b>5 Jun 2026</div>
+      <div><i></i><b>Wedding</b>23 May 2027</div>
+      <div><i></i><b>Reception</b>24 May 2027</div>
+    </div>
+    <div class="tag"><b>8</b><h2>Our story</h2></div><p>A small timeline under the photo — the last dot gently pulses.</p></section>
+
+  <section class="opt"><div class="stage stack">
+      <div class="print a"><span>your<br>photo</span></div>
+      <div class="print b"><span>your<br>photo</span></div>
+      <div class="pic"></div>
+    </div>
+    <div class="tag"><b>9</b><h2>Photo stack</h2></div><p>Two engagement prints tucked behind the painting (hover to fan them). I'd use your real photos.</p></section>
+
+  <section class="opt"><div class="stage"><div class="pic"></div></div>
+    <div class="bless"><span class="ml">ശുഭമസ്തു</span><span class="en">Shubhamastu</span></div>
+    <div class="tag"><b>10</b><h2>Malayalam blessing</h2></div><p>"May all be auspicious" in shimmering gold under the photo.</p></section>
+</main>
+
+<p class="note">These are only previews — nothing here is on the main invitation yet.</p>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function mk(svg){ return function(t,a){ var e=document.createElementNS(NS,t); for(var k in a) e.setAttribute(k,a[k]); svg.appendChild(e); return e; }; }
+
+  // 2 fireflies
+  var f=document.getElementById("flies");
+  [[8,20],[88,14],[96,52],[4,62],[78,86],[20,92],[52,4],[92,78],[14,40]].forEach(function(p,i){
+    var d=document.createElement("span"); d.className="fly"; d.style.left=p[0]+"%"; d.style.top=p[1]+"%";
+    d.style.setProperty("--d",(6+i%4)+"s"); d.style.setProperty("--b",(1.8+(i%3)*.6)+"s"); d.style.animationDelay=(-i*.7)+"s,"+(-i*.4)+"s";
+    f.appendChild(d);
+  });
+
+  // 4 lamps
+  document.querySelectorAll(".vilakku").forEach(function(svg,li){
+    var V=mk(svg), id="br"+li, fid="fg"+li, d=document.createElementNS(NS,"defs"); svg.appendChild(d);
+    d.innerHTML='<linearGradient id="'+id+'" x1="0" x2="1"><stop offset="0" stop-color="#8A5A1E"/><stop offset=".35" stop-color="#F3D38A"/><stop offset=".55" stop-color="#C9963E"/><stop offset="1" stop-color="#7a4c16"/></linearGradient>'+
+      '<radialGradient id="'+fid+'" cx=".5" cy=".75" r=".7"><stop offset="0" stop-color="#fffbe6"/><stop offset=".45" stop-color="#ffd25a"/><stop offset="1" stop-color="#ff8a1e"/></radialGradient>';
+    var B="url(#"+id+")";
+    V("path",{d:"M40 4 Q45 12 40 18 Q35 12 40 4Z",fill:B}); V("rect",{x:38,y:17,width:4,height:26,rx:2,fill:B}); V("circle",{cx:40,cy:24,r:3.4,fill:B});
+    V("path",{d:"M8 46 Q40 70 72 46 Q40 54 8 46Z",fill:B}); V("ellipse",{cx:40,cy:46,rx:32,ry:5,fill:B});
+    [[11,45],[24,49],[40,51],[56,49],[69,45]].forEach(function(p,k){
+      var e=V("path",{d:"M"+p[0]+" "+p[1]+" q-5 -6 0 -16 q5 10 0 16Z",fill:"url(#"+fid+")","class":"fl"}); e.style.animationDelay=(k*.17+li*.3)+"s"; });
+    V("path",{d:"M36 60 L35 160 H45 L44 60Z",fill:B}); [72,104,136].forEach(function(y){ V("ellipse",{cx:40,cy:y,rx:8,ry:4,fill:B}); });
+    V("ellipse",{cx:40,cy:62,rx:10,ry:3.5,fill:B}); V("ellipse",{cx:40,cy:160,rx:14,ry:4,fill:B});
+    V("path",{d:"M27 162 Q40 170 53 162 L68 186 Q40 194 12 186Z",fill:B}); V("ellipse",{cx:40,cy:187,rx:29,ry:5,fill:B});
+  });
+
+  // 5 kolam: dot grid with looping strokes
+  (function(){ var s=document.getElementById("kolam"), K=mk(s);
+    for(var i=0;i<9;i++) for(var r=0;r<2;r++) K("circle",{cx:30+i*35,cy:20+r*30,r:1.8,fill:"#B8893F"});
+    K("path",{d:"M12 35 Q170 -10 328 35 Q170 80 12 35Z","class":"k",fill:"none",stroke:"#C79A4E","stroke-width":1.2});
+    for(var i=0;i<9;i++){ var x=30+i*35;
+      K("path",{d:"M"+x+" 6 Q"+(x+16)+" 20 "+x+" 35 Q"+(x-16)+" 50 "+x+" 64 Q"+(x+16)+" 50 "+x+" 35 Q"+(x-16)+" 20 "+x+" 6Z","class":"k",fill:"none",stroke:"#B8893F","stroke-width":1}); }
+  })();
+
+  // 6 jasmine
+  document.querySelectorAll(".mulla").forEach(function(svg){
+    var J=mk(svg), path=J("path",{d:"M6 10 C70 120 190 150 296 8",fill:"none",stroke:"#6b7f4a","stroke-width":1.2}),
+        tail=J("path",{d:"M150 112 C152 135 146 160 150 182",fill:"none",stroke:"#6b7f4a","stroke-width":1});
+    function bloom(x,y,r,rot){ for(var q=0;q<5;q++) J("ellipse",{cx:x,cy:y-r,rx:r*.55,ry:r,fill:"#fffdf7",stroke:"#dccfae","stroke-width":.4,transform:"rotate("+(q*72+rot)+" "+x+" "+y+")"}); J("circle",{cx:x,cy:y,r:r*.33,fill:"#f2c14e"}); }
+    function bud(x,y,a){ J("ellipse",{cx:x,cy:y,rx:2.2,ry:5,fill:"#fbf6e8",stroke:"#d8c9a2","stroke-width":.4,transform:"rotate("+a+" "+x+" "+y+")"}); }
+    function leaf(x,y,a){ J("ellipse",{cx:x,cy:y,rx:7,ry:2.6,fill:"#6E8B4E",transform:"rotate("+a+" "+x+" "+y+")"}); }
+    [path,tail].forEach(function(pp,pi){ var L=pp.getTotalLength();
+      for(var t=4,k=0;t<L;t+=8,k++){ var a=pp.getPointAtLength(t), b=pp.getPointAtLength(Math.min(L,t+1)), an=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI;
+        if(k%5===2){ leaf(a.x,a.y,an+40); leaf(a.x,a.y,an-40); }
+        if(k%3===1) bud(a.x,a.y,an+90+(k%2?20:-20)); else bloom(a.x,a.y,pi?4.2:4.6,k*23); } });
+    bloom(150,184,5.4,10);
+  });
+
+  // 7 banana leaf + palm
+  (function(){
+    var L=mk(document.getElementById("leaves"));
+    var d=document.createElementNS(NS,"defs"); document.getElementById("leaves").appendChild(d);
+    d.innerHTML='<linearGradient id="bl" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3f5f2c"/><stop offset=".6" stop-color="#6f9150"/><stop offset="1" stop-color="#9fb87c"/></linearGradient>';
+    L("path",{d:"M10 195 C30 120 110 40 205 22 C190 90 120 170 10 195Z",fill:"url(#bl)",opacity:.92});
+    L("path",{d:"M10 195 C70 130 140 70 205 22",stroke:"#d9e3c4","stroke-width":1.4,fill:"none"});
+    for(var i=1;i<12;i++){ var t=i/12, x=10+195*t, y=195-173*t+ (Math.sin(t*3.1)*-30);
+      L("path",{d:"M"+x+" "+y+" l"+(14-i)+" "+(16-i*.6),stroke:"#2f4a20","stroke-width":.5,opacity:.5,fill:"none"});
+      L("path",{d:"M"+x+" "+y+" l"+(-10+i*.2)+" "+(-12+i*.3),stroke:"#c9d8b0","stroke-width":.5,opacity:.6,fill:"none"}); }
+    L("path",{d:"M0 200 C20 150 60 120 110 110 C80 140 50 175 0 200Z",fill:"#56763b",opacity:.85});
+    var P=mk(document.getElementById("palm"));
+    P("path",{d:"M190 10 C150 40 110 80 90 140",stroke:"#5b6f40","stroke-width":2,fill:"none"});
+    for(var i=0;i<16;i++){ var t=i/16, x=190-100*t, y=10+130*t*t+20*t;
+      P("path",{d:"M"+x+" "+y+" q"+(-24+i)+" "+(4+i*.5)+" "+(-40+i*1.5)+" "+(20+i)+"",stroke:"#6f8a4e","stroke-width":2.4,fill:"none","stroke-linecap":"round"});
+      P("path",{d:"M"+x+" "+y+" q"+(6)+" "+(14)+" "+(8+i*.3)+" "+(30+i)+"",stroke:"#7f9a5e","stroke-width":2.2,fill:"none","stroke-linecap":"round"}); }
+  })();
+})();
+</script>
+</body>
+</html>
