@@ -94,15 +94,15 @@
       radial-gradient(ellipse at 85% 80%, rgba(95,127,69,.18), transparent 55%), var(--cream); }
   .hero{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
   .photo{ position:relative; width:min(100%,380px); margin:0 auto; }
-  .polar{ position:relative; background:#fffdf8; padding:6% 6% 24%; transform:rotate(-3deg); transform-origin:50% -10%;
-    box-shadow:0 22px 40px rgba(60,40,10,.22), 0 2px 6px rgba(60,40,10,.12); animation:hang 6s ease-in-out infinite; }
-  @keyframes hang{ 0%,100%{ transform:rotate(-3deg);} 50%{ transform:rotate(-1deg);} }
-  .polar .win{ position:relative; aspect-ratio:4/5; overflow:hidden; background:#fff; }
+  .polar{ position:relative; background:#fffdf8; padding:6% 6% 24%; transform:rotate(2deg);
+    box-shadow:0 22px 40px rgba(60,40,10,.22), 0 2px 6px rgba(60,40,10,.12); }
+  .polar .win{ position:relative; aspect-ratio:4/5; overflow:hidden; background:#fff;
+    filter:grayscale(1) brightness(.25) contrast(.6) sepia(.4); }
+  .go .polar .win{ animation:develop 5s ease-out .9s forwards; }
+  @keyframes develop{ 0%{ filter:grayscale(1) brightness(.25) contrast(.6) sepia(.4);} 40%{ filter:grayscale(.8) brightness(.7) contrast(.85) sepia(.5);} 100%{ filter:none;} }
   .polar .pic{ position:absolute; inset:0; background:url("couple.jpg") no-repeat; background-size:172%; background-position:80% 74%;
     transform-origin:60% 70%; animation:kenburns 18s ease-in-out infinite alternate; }
   @keyframes kenburns{ from{ transform:scale(1);} to{ transform:scale(1.1);} }
-  .polar .tape{ position:absolute; top:-4%; left:50%; width:34%; height:7%; z-index:2; transform:translateX(-50%) rotate(2deg);
-    background:repeating-linear-gradient(45deg,rgba(184,137,63,.55) 0 6px,rgba(232,199,127,.55) 6px 12px); }
   .polar .cap{ position:absolute; left:0; right:0; bottom:5%; text-align:center; }
   .polar .cap b{ display:block; font-family:var(--script); font-weight:400; font-size:clamp(26px,4.4vw,34px); color:var(--green); line-height:1.1; }
   .polar .cap span{ font-family:var(--caps); font-size:11px; letter-spacing:.3em; color:var(--gold); }
@@ -242,6 +242,7 @@
   @media (prefers-reduced-motion: reduce){
     *{ animation:none !important; transition:none !important; }
     .reveal{ opacity:1; transform:none; }
+    .polar .win{ filter:none; }
     .names .w{ display:inline-block; white-space:nowrap; }
   .names .ch{ opacity:1; transform:none; }
   }
@@ -299,7 +300,6 @@
   <div class="wrap hero">
     <div class="photo reveal zoom">
       <div class="polar">
-        <div class="tape"></div>
         <div class="win"><div class="pic" role="img" aria-label="Akshay and Krishna"></div></div>
         <div class="cap"><b>Akshay &amp; Krishna</b><span>23 · 05 · 2027</span></div>
       </div>
